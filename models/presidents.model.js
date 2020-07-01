@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const presidentSchema = new Schema({
+    number: {
+        type: Number,
+        required: true
+    },
     president: {
         type: String,
         required: true
@@ -23,11 +27,10 @@ const presidentSchema = new Schema({
         type: Date,
         required: true
     },
-    part: {
+    party: {
         type: String,
         required: true
     }
-
 });
 
 const President = mongoose.model('President', presidentSchema);

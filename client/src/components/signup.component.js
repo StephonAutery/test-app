@@ -1,38 +1,50 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-// import { response } from 'express';
+import { Redirect } from "react-router-dom";
 import API from "../utils/API";
+// import Select from 'react-select';
 
 export default class NewQuestions extends Component {
     state = {
-        username: "",
+        name: "",
+        email: "",
         password: "",
-        confirmPassword: '',
+        password2: "",
+        race: "",
         loggedIn: false,
-        redirectTo: null
+        redirect: null
+    }
+
+    constructor(props) {
+        super(props);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log('sign-up handleSubmit, username: ');
-        console.log(this.state.username);
-        API
-            .getUser('/users/login', {
-                username: this.state.username,
-                password: this.state.password
-            })
+        API.signUp({
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            password2: this.state.password2,
+            role: "user",
+            race: this.state.race
+        })
             .then(res => {
                 console.log("login response: ");
                 console.log(res);
                 if (!res.data.errmsg) {
-                    console.log('successful signup')
+                    console.log('successful signup');
                     this.setState({
-                        redirectTo: '/login'
-                    })
+                        redirect: '/login'
+                    });
                 } else {
-                    console.log('username already taken');
+                    // console.log('username already taken');
+                    this.setState({
+                        redirect: '/login'
+                    });
                 }
-            }).catch(err => {
+            })
+            .catch(err => {
                 console.log("dang! you're not signed up!");
                 console.log(err);
             });
@@ -41,36 +53,88 @@ export default class NewQuestions extends Component {
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
-        })
+        });
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={{
+                pathname: this.state.redirect
+            }} />
+        }
         return (
             <div className="container p-2 w-50">
                 <h3><p>hello new user</p></h3>
                 <hr />
                 <form onSubmit={this.handleFormSubmit}>
-                    <label htmlFor="username">
-                        &nbsp;&nbsp;user name:
+                    <label htmlFor="name">
+                        &nbsp;&nbsp;name:
                         <p>
                             <input
                                 type="text"
-                                value={this.state.username}
-                                name="username"
-                                placeholder="user name"
+                                value={this.state.name}
+                                name="name"
+                                placeholder="full name"
+                                autoComplete="name"
                                 onChange={this.handleChange}
                             />
                         </p>
                     </label>
                     <br />
-                    <label htmlFor="password">
-                        &nbsp;&nbsp;password:
+                    <label htmlFor="email">
+                        &nbsp;&nbsp;email:
                         <p>
                             <input
                                 type="text"
                                 value={this.state.username}
+                                name="email"
+                                placeholder="email address"
+                                autoComplete="email"
+                                onChange={this.handleChange}
+                            />
+                        </p>
+                    </label>
+                    <br />
+                    {/* <label htmlFor="race">&nbsp;&nbsp;race:</label>
+                        <p>
+                            <select value={ this.state.race } name="race" id="race" placeholder="race">
+                            <option value="White">White American</option>
+                            <option value="Black">Black or African American</option>
+                            <option value="IndianAlaskan">American Indian and Alaska Native</option>
+                            <option value="Chinese">Chinese American</option>
+                            <option value="Filipino">Filipino American</option>
+                            <option value="AsianIndian">Asian Indian American</option>
+                            <option value="NaHawiian">Native Hawaiian American</option>
+                            <option value="Samoan">Samoan American</option>
+                            <option value="Chamorro">Chamorro American</option>
+                            <option value="PacificIs">Pacific Islander</option>
+                            <option value="Mixed">Mixed Race</option>
+                            </select>
+                        </p>
+                    <br /> */}
+                    <label htmlFor="password">
+                        &nbsp;&nbsp;password:
+                        <p>
+                            <input
+                                type="password"
+                                value={this.state.password}
                                 name="password"
                                 placeholder="password"
+                                autoComplete="password"
+                                onChange={this.handleChange}
+                            />
+                        </p>
+                    </label>
+                    <br />
+                    <label htmlFor="password2">
+                        &nbsp;&nbsp;re-enter password:
+                        <p>
+                            <input
+                                type="password"
+                                value={this.state.password2}
+                                name="password2"
+                                placeholder="password2"
+                                autoComplete="password2"
                                 onChange={this.handleChange}
                             />
                         </p>
@@ -78,9 +142,10 @@ export default class NewQuestions extends Component {
                     <hr />
                     <p>
                         <button
-                            className="save btn btn-danger"
+                            className="save btn btn-primary"
                             onClick={this.handleSubmit}
                             type="submit"
+                            value="submit"
                         >sign up</button>
                     </p>
                 </form>

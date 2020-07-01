@@ -1,9 +1,8 @@
 module.exports = {
     Question: require("./question.model"),
-    President: require("./presidents.model"),
-    Users: require("./users.model-old"),
+    Presidents: require("./presidents.model"),
+    Users: require("./Users"),
     Results: require("./results.model"),
-    Login: require("./login.model"),
     Sue: require("./sue.model"),
     Stats: require("./stats.model"),
 };

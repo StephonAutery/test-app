@@ -1,35 +1,45 @@
 const express = require("express");
 const mongoose = require("mongoose");
-// const path = require("path");
+const bodyParser = require("body-parser");
+const passport = require("passport");
 const routes = require("./routes");
+
 const app = express();
-const PORT = process.env.PORT || 3001;
 
-// Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+// middleware
+app.use(
+    bodyParser.urlencoded({
+        extended: false
+    }),
+    bodyParser.json(),
+    passport.initialize()
+);
+// app.use(bodyParser.json());
 
-// Define API routes here
+// dbconfig
+const db = require("./config/keys").mongoURI;
+// connect to mongoDB
+mongoose.connect(
+    db,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+    }
+)
+    .then(() => console.log("- mongoDB successfully connected -"))
+    .catch(err => console.log(err));
+
+// passport middleware
+// app.use(passport.initialize());
+
+// passport config
+require("./config/passport")(passport);
+
+// routes
+// app.use("/api/users", users);
 app.use(routes);
 
-// Connect to the Mongo DB
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/historyPortal"
-mongoose.connect(process.env.MONGODB_URI || "mongodb://a-new-game:1history@ds331568.mlab.com:31568/heroku_vm824khm", {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
+const port = process.env.PORT || 3001; // config for Heroku Deployment
 
-// Send every other request to the React app
-// // Define any API routes before this runs
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
-
-app.listen(PORT, () => {
-  console.log(`API server now on port ${PORT}!`);
-});
+app.listen(port, () => console.log(`server running on port ${port} !`));

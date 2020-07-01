@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
-// import axios from 'axios';
-import API from './utils/API.js'
-import "./App.css";
-import Navbar from "./components/navbar.component";
-import Person from "./components/person.component";
-import Questions from "./components/questions.component";
-import Users from "./components/users.component";
-import EditQuestions from "./components/edit-questions.component";
-import NewQuestions from "./components/new-questions.component";
+import sueQuestions from "./components/sets/sueQuestions.component";
+import Presidents from "./components/sets/presidents.component";
+import Questions from "./components/sets/questions.component";
 import MyStats from "./components/mystats.component";
-import SignUp from "./components/signup.component";
-import Login from "./components/login.component"
+import Landing from "./components/landing.component";
+import Navbar from "./components/navbar.component";
+import Signup from "./components/signup.component";
+import Login from "./components/login.component";
+import Logout from "./components/logout.component";
+import Play from "./components/play.component";
+import API from "./utils/API.js";
 
 class App extends Component {
   state = {
@@ -23,20 +21,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("----- props -")
+      console.log(this.props)
     // this.getUser();
-  }
-
-  updateUser(userObject) {
-    console.log("-------------- userObject --")
-    console.log(userObject);
-    console.log("-------------- userObject --")
-    this.setState({userObject: userObject});
   }
 
   getUser() {
     API.getUser({
-      username: this.state.username,
-      password: this.state.password
+      email: this.state.email
     }).then(res => {
       console.log("----- App.js - getUser res");
       console.log(res.data);
@@ -67,27 +59,20 @@ class App extends Component {
               path="/"
               render={() => {
                 return (
-                  (this.state.loggedIn ? < Redirect to="/questions" /> : < Redirect to="/users" />)
+                  (localStorage.getItem('loginData') ? < Redirect to="/play" /> : < Redirect to="/landing" />)
                 )
               }}
             />
-            <Route path="/questions" component={Questions} />
-            <Route path="/new-questions" component={NewQuestions} />
-            <Route path="/edit-questions/:id" component={EditQuestions} />
-            <Route path="/person" component={Person} />
-            <Route path="/mystats" component={MyStats} />
-            <Route path="/users" component={Users} />
-            <Route path="/*" component={Users} />
-            <Route
-              path="/users"
-              render={() =>
-                <SignUp />}
-            />
-            <Route
-              path="/users"
-              render={() =>
-                <Login updateUser={this.updateUser} />}
-            />
+            <Route path="/questions" component={ Questions } />
+            <Route path="/login" component={ Login } />
+            <Route path="/logout" component={ Logout } />
+            <Route path="/mystats" component={ MyStats } />
+            {/* <Route path="/users" component={ Users } /> */}
+            <Route path="/signup" component={ Signup } />
+            <Route path="/landing" component={ Landing } />
+            <Route path="/sueQuestions" component={ sueQuestions } />
+            <Route path="/presidents" component={ Presidents } />
+            <Route path="/play" component={ Play } />
           </Switch>
         </Router>
       </div >

@@ -1,7 +1,8 @@
 {
-  "name": "history-portal",
+  "name": "social-quiz",
+  "homepage": "https://stephonautery.github.io/social-quiz/",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "learn your history, be a better citizen",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -13,34 +14,33 @@
     "heroku-postbuild": "npm run build",
     "seed": "node scripts/seed.js"
   },
-  "author": "",
+  "keywords": [
+    "history",
+    "racism",
+    "friends",
+    "play"
+  ],
+  "author": "Stephon Autery",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "mongoose-seed": "^0.6.0",
     "nodemon": "^1.18.7"
   },
   "dependencies": {
+    "autoprefixer": "^9.8.4",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
-    "bootstrap": "^4.5.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "express-sessions": "^1.0.6",
+    "body-parser": "^1.19.0",
+    "concurrent": "^0.3.2",
+    "express": "^4.16.3",
     "if-env": "^1.0.4",
-    "mongodb": "^3.5.7",
-    "mongoose": "^5.9.16",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.20",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
+    "passport-jwt": "^4.0.0",
     "react": "^16.13.1",
-    "react-bootstrap": "^1.0.1",
-    "react-dom": "^16.13.1",
-    "react-dropdown": "^1.7.0",
-    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "seed": "^0.4.4",
-    "sessions": "0.0.2-7",
-    "view": "^1.1.1"
+    "validator": "^13.1.1"
   }
 }

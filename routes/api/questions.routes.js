@@ -4,12 +4,12 @@ const qController = require("../../controllers/qController");
 router
   .route("/")
   .get(qController.findAll)
-  .post(qController.create);
+  // .post(qController.create);
 
-// Matches with "/api/books/:id"
-router
-  .route("/:id")
-  .get(qController.findById)
-  .delete(qController.remove);
+// Matches with "/api/questions/:id"
+// router
+//   .route("/:id")
+//   .get(qController.findById)
+//   .delete(qController.remove);
 
 module.exports = router;

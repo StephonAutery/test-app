@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import API from '../utils/API';
-import Container from "./container.component";
+import API from '../../utils/API';
+import Container from "./../container.component";
 import { Redirect } from "react-router-dom";
 
 export default class Questions extends Component {
@@ -11,7 +11,8 @@ export default class Questions extends Component {
         answers: [],
         results: [],
         answerID: 0,
-        
+        userID: "",
+
         questionSet: "getQuestions",
 
         selectedOption: '',
@@ -21,21 +22,25 @@ export default class Questions extends Component {
         numWrong: 0,
         pCorrect: 0,
         pIncorrect: 0,
+        id: ""
     }
 
     componentDidMount() {
+
         API.getQuestions()
             .then(res => {
                 this.setState({
                     questions: res.data
                 })
             })
-            .then(() => {
+            .then(res => {
                 this.setState({
                     questionNum: 1,
-                    question: this.state.questions[this.state.questionNum]
-                });
+                    question: this.state.questions[this.state.questionNum],
+                    userID: JSON.parse(localStorage.getItem('loginData'))
+                })
             })
+
         // API.LOC_API()
         //     .then(res => {
         //         // console.log(res.data.trending_content);
@@ -84,13 +89,14 @@ export default class Questions extends Component {
             }
         }
     }
+
     render() {
         if (this.state.redirect) {
             return <Redirect to={{
                 // sending data to mystats page
                 pathname: this.state.redirect,
                 state: {
-                    id: this.props.location.state.id,
+                    id: this.state.userID.userid,
                     answers: this.state.answerResult,
                     numRight: this.state.numRight,
                     numWrong: this.state.numWrong,

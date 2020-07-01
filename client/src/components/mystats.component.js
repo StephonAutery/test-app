@@ -49,8 +49,10 @@ export default class Users extends Component {
         API.getUserById(this.props.location.state.id)
             .then(res => {
                 this.setState({
-                    user: res.data[0]
+                    user: res.data.user
                 })
+                console.log("----- user -");
+                console.log(this.state.user.name);
             });
     }
 
@@ -66,14 +68,14 @@ export default class Users extends Component {
         return (
             < Container >
                 <div className="container w-75">
-                    <h3><p>You Are: {this.state.user.f_name} {this.state.user.l_name}</p></h3>
+                    {/* <h3><p>You Are: { this.state.user.name }</p></h3> */}
                     <hr />
                     <div className="row">
 
                         <div className="col">
                             <div className="row card p-2 m-1">
                                 <p>player ID:</p>
-                                <p>{this.props.location.state.id}</p>
+                                <p>{ this.state.user.name }</p>
                             </div>
                             <div className="row card p-2 m-1">
                                 <p>number correct:</p>
