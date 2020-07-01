@@ -36,10 +36,10 @@ mongoose.connect(
 // passport config
 require("./config/passport")(passport);
 
+const port = process.env.PORT || 3001; // config for Heroku Deployment
+
 // routes
 // app.use("/api/users", users);
 app.use(routes);
-
-const port = process.env.PORT || 3001; // config for Heroku Deployment
 
 app.listen(port, () => console.log(`server running on port ${port} !`));
