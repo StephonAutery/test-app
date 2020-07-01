@@ -23,5 +23,4 @@ return {
     errors,
     isValid: isEmpty(errors)
   };
-  
 };
