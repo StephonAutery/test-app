@@ -6,10 +6,12 @@ const routes = require("./routes");
 
 const app = express();
 
+const port = process.env.PORT || 3001; // config for Heroku Deployment
+
 // middleware
 app.use(
     bodyParser.urlencoded({
-        extended: false
+        extended: true
     }),
     bodyParser.json(),
     passport.initialize()
@@ -36,7 +38,9 @@ mongoose.connect(
 // passport config
 require("./config/passport")(passport);
 
-const port = process.env.PORT || 3001; // config for Heroku Deployment
+if (process.env.NODE_ENV === "production"){
+    app.use(express.static("client/build"));
+}
 
 // routes
 // app.use("/api/users", users);
