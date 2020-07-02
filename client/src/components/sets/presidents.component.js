@@ -74,7 +74,7 @@ export default class Questions extends Component {
                                     death year: { pres.death_year}<br />
                                     party: { pres.party}<hr />
                                     <p>
-                                        <a href="/play" className="btn btn-info">play again</a>
+                                        <a href="/play" className="btn btn-info">return to portal</a>
                                     </p>
                                     <p>
                                         <a href="/play" data={ pres._id } className="btn btn-info">{ pres._id } : more about this president</a>
