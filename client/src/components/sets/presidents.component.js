@@ -61,7 +61,6 @@ export default class Questions extends Component {
                 <div className="container">
                     <h4><p>president number : {this.state.presNum}</p></h4>
                     <hr />
-
                     <div>
 
                         <div className="card ">

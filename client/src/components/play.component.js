@@ -72,7 +72,7 @@ export default class Landing extends Component {
                         value="submit">Stephon Autery
                     </button>
                     <hr />
-                    <p>explore the truth about the Presidents of the US?</p>
+                    <p>Explore the TRUE stories of the Presidents of the United States?</p>
                     <button
                         className="save btn btn-info"
                         onClick={this.playPres}

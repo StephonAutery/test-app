@@ -16,7 +16,6 @@ app.use(
     bodyParser.json(),
     passport.initialize()
 );
-// app.use(bodyParser.json());
 
 // dbconfig
 const db = require("./config/keys").mongoURI;
