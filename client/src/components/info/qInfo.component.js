@@ -4,10 +4,11 @@ function QInfo(props) {
     console.log(props)
     return (
         <div>
-            <p>you answered: { props.response }</p>
-            <p>correct answer: { props.answer }</p>
             <hr />
-            <p>{ props.info }</p>
+            <p>you answered: {props.response}</p>
+            <p>correct answer: {props.answer}</p>
+            <hr />
+            <p>{props.info}</p>
         </div>
     );
 }
