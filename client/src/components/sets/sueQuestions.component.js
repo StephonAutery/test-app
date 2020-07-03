@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 import Container from "../container.component";
+import QInfo from "../info/qInfo.component";
 import { Redirect } from "react-router-dom";
 
 export default class Questions extends Component {
@@ -62,6 +63,9 @@ export default class Questions extends Component {
     handleFormSubmit() {
         //get the answer
         if (this.state.selectedOption) {
+            this.setState({
+                answered: false
+            })
             if (this.state.question.answer === this.state.selectedOption || this.state.question.answer === 'all') {
                 // if they get it right
                 this.setState({
@@ -88,9 +92,15 @@ export default class Questions extends Component {
         }
     }
     
+    qAnswered() {
+        if (this.state.selectedOption) {
+            this.setState({
+                answered: true
+            })
+        }
+    }
+
     render() {
-        console.log("----- userid - render -")
-        console.log(this.state.userID.userid);
         if (this.state.redirect) {
             return <Redirect to={{
                 // sending data to mystats page
@@ -149,11 +159,28 @@ export default class Questions extends Component {
                             </p>
                             <p>
                                 <button
-                                    onClick={() => this.handleFormSubmit()}
+                                    onClick={() => this.qAnswered()}
                                     className="save btn btn-info"
                                     type="submit">answer
                                         </button>
                             </p>
+                            <p>
+                                <button
+                                    onClick={() => this.handleFormSubmit()}
+                                    className="save btn btn-danger"
+                                    type="submit">next question
+                                </button>
+                            </p>
+                            {this.state.answered ?
+                                <QInfo
+                                    response={ this.state.selectedOption }
+                                    answer={ this.state.question.answer }
+                                    ID={ this.state.question._id }
+                                    info={ this.state.question.info }
+                                    thisQ_links={ this.state.question.links }
+                                />
+                                : ""
+                            }
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import { Component } from 'react';
 import API from '../../utils/API';
 import Container from "../container.component";
 import { Redirect } from "react-router-dom";
+import PresInfo from "../info/presInfo.component";
 // import Moment from 'react-moment';
 
 export default class Questions extends Component {
@@ -12,7 +13,7 @@ export default class Questions extends Component {
         questionSet: "getQuestions",
         selectedOption: '',
         presNum: 0,
-        pres:""
+        pres: ""
     }
 
     constructor(props) {
@@ -41,7 +42,12 @@ export default class Questions extends Component {
         });
     }
 
-    handleFormSubmit() {
+    handleFormSubmit = event => {
+
+        console.log(this.props);
+        return (
+        <PresInfo />
+        );
 
     }
 
@@ -65,8 +71,8 @@ export default class Questions extends Component {
 
                         <div className="card ">
                             {this.state.presidents.map(pres => (
-                                <div key={ pres._id } className="card-body">
-                                    <h4>{ pres.president }</h4>
+                                <div key={pres._id} className="card-body">
+                                    <h4>{pres.president}</h4>
                                     {pres.number}<hr />
                                     birth year: { pres.birth_year}  <br />
                                     took office: { pres.took_office}<br />
@@ -77,22 +83,23 @@ export default class Questions extends Component {
                                         <a href="/play" className="btn btn-info">return to portal</a>
                                     </p>
                                     <p>
-                                        <a href="/play" data={ pres._id } className="btn btn-info">{ pres._id } : more about this president</a>
+                                        <a href="/play" data={pres._id} className="btn btn-info">{pres._id} : more about this president</a>
+                                    </p>
+                                    <p>
+                                        <button
+                                            onClick={() => this.handleFormSubmit()}
+                                            className="save btn btn-info"
+                                            type="submit">next President
+                                        </button>
                                     </p>
                                     <hr />
                                 </div>
                             ))}
                         </div>
 
+                        {/* <PresInfo /> */}
                     </div>
 
-                    <p>
-                        <button
-                            onClick={() => this.handleFormSubmit()}
-                            className="save btn btn-info"
-                            type="submit">next President
-                                </button>
-                    </p>
 
 
                 </div>

@@ -6,7 +6,9 @@ const questionSchema = new Schema({
     a: { type: String, required: true },
     b: { type: String, required: true },
     c: { type: String, required: true },
-    answer: { type: String, required: true }
+    answer: { type: String, required: true },
+    info: { type: String },
+    links: { type: String}
 }, { 
     timestamps: true 
 });
