@@ -69,7 +69,7 @@ export default class Questions extends Component {
                     <div className="p-2"><h5>The Presidents of the United States of America</h5></div>
                     {this.state.presidents.map((pres, index) => (
                         <div key={index + 3}>
-                            < div key={index} className="card p-2 m-2 w-50" >
+                            < div key={index} className="card p-2 m-2 w-75" >
                                 <div key={pres._id} className="card-body">
                                     <h4>{pres.president}</h4>
                                     <h4>{pres.number}</h4>
