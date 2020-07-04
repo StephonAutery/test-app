@@ -51,6 +51,20 @@ export default class Questions extends Component {
 
     }
 
+    createCards(pres){
+
+    }
+    createRow(index, pres) {
+        if (index % 3 === 0) {
+            return( 
+            <div className="row">
+
+            </div>
+            )
+        }
+        return("not");
+    }
+
     render() {
         if (this.state.redirect) {
             return <Redirect to={{
@@ -66,13 +80,17 @@ export default class Questions extends Component {
         return (
             <Container>
                 <div className="container w-75">
-                    <div className="p-2"><h5>The Presidents of the United States of America</h5></div>
+                    <h4><p>president number : {this.state.presNum}</p></h4>
+                    <hr />
+
                     {this.state.presidents.map((pres, index) => (
+
                         <div key={index + 3}>
-                            < div key={index} className="card p-2 m-2 w-50" >
+                            {/* {this.state.switch ? this.createRow(index, pres) : ""} */}
+                            < div key={index} className="card p-2 m-2" >
                                 <div key={pres._id} className="card-body">
                                     <h4>{pres.president}</h4>
-                                    <h4>{pres.number}</h4>
+                                    {pres.number}<hr />
                                         birth year: {pres.birth_year}  <br />
                                         took office: {pres.took_office}<br />
                                         left office: {pres.left_office}<br />
@@ -82,13 +100,26 @@ export default class Questions extends Component {
                                         <a href="/play" className="btn btn-info">return to portal</a>
                                     </p>
                                     <p>
-                                        <a href="/play" data={pres._id} className="btn btn-info">id: {pres._id}</a>
+                                        <a href="/play" data={pres._id} className="btn btn-info">{pres._id}</a>
+                                    </p>
+                                    <p>
+                                        <button
+                                            onClick={() => this.handleFormSubmit()}
+                                            className="save btn btn-info"
+                                            type="submit">next President
+                                    </button>
                                     </p>
                                 </div>
                             </div>
                         </div>
+
                     ))}
+
+                    {/* <PresInfo /> */}
                 </div>
+
+
+
             </Container >
         )
     }
