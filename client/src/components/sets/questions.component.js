@@ -28,21 +28,28 @@ export default class Questions extends Component {
     }
 
     componentDidMount() {
-
         API.getQuestions()
             .then(res => {
                 this.setState({
                     questions: res.data
-                })
+                });
             })
             .then(res => {
                 this.setState({
                     questionNum: 1,
                     question: this.state.questions[this.state.questionNum],
                     userID: JSON.parse(localStorage.getItem('loginData'))
-                })
-            })
-
+                });
+                console.log(this.state.userID);        
+                API.getUserById(this.state.userID.userid)
+                .then(res => {
+                    this.setState({
+                        user: res.data.user
+                    });
+                    console.log("----- user -");
+                    console.log(this.state.user.name);
+                });
+            });
         // API.LOC_API()
         //     .then(res => {
         //         // console.log(res.data.trending_content);
@@ -103,30 +110,35 @@ export default class Questions extends Component {
         }
     }
 
-    render() {
-        if (this.state.redirect) {
-            return <Redirect to={{
-                // sending data to mystats page
-                pathname: this.state.redirect,
-                state: {
-                    id: this.state.userID.userid,
-                    answers: this.state.answerResult,
-                    numRight: this.state.numRight,
-                    numWrong: this.state.numWrong,
-                    pCorrecet: this.state.pCorrect,
-                    pIncorrect: this.state.pIncorrect
-                }
-            }} />
-        }
-        return (
-            <Container>
-                <div className="container radio w-75">
-                    <h4><p>question number : {this.state.questionNum}</p></h4>
+render() {
+    if (this.state.redirect) {
+        return <Redirect to={{
+            // sending data to mystats page
+            pathname: this.state.redirect,
+            state: {
+                id: this.state.userID.userid,
+                answers: this.state.answerResult,
+                numRight: this.state.numRight,
+                numWrong: this.state.numWrong,
+                pCorrecet: this.state.pCorrect,
+                pIncorrect: this.state.pIncorrect
+            }
+        }} />
+    }
+    return (
+        <Container>
+            <div className="container radio w-75">
+                <div className="card p-4 m-4">
+                    <h5>Question {this.state.questionNum}</h5>
                     <hr />
-                    <div>
-                        <div className="card p-2 m-4">
-                            <p>{this.state.question.question}</p>
-                            <hr />
+                    Current User: <h6>{this.state.user.name}</h6>
+                </div>
+                <div>
+                    <div className="card p-4 m-4">
+                        {this.state.question.question}
+                    </div>
+                    {!this.state.answered ?
+                        <div className="card p-4 m-4">
                             <p>
                                 <label>
                                     <input
@@ -135,7 +147,7 @@ export default class Questions extends Component {
                                         checked={this.state.selectedOption === "a"}
                                         onChange={this.onValueChange}
                                     />
-                                        &nbsp;&nbsp;{this.state.question.a}<br />
+                                        &nbsp;&nbsp;{this.state.question.a}
                                 </label>
                             </p>
                             <p>
@@ -146,7 +158,7 @@ export default class Questions extends Component {
                                         checked={this.state.selectedOption === "b"}
                                         onChange={this.onValueChange}
                                     />
-                                        &nbsp;&nbsp;{this.state.question.b}<br />
+                                        &nbsp;&nbsp;{this.state.question.b}
                                 </label>
                             </p>
                             <p>
@@ -157,37 +169,62 @@ export default class Questions extends Component {
                                         checked={this.state.selectedOption === "c"}
                                         onChange={this.onValueChange}
                                     />
-                                        &nbsp;&nbsp;{this.state.question.c}<br />
+                                        &nbsp;&nbsp;{this.state.question.c}
                                 </label>
                             </p>
-                            <p>
+                        </div> : ""}
+                    {/* <p>
+                                {this.state.selected !== "c" && this.state.answered ? "" :
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            value="c"
+                                            checked={this.state.selectedOption === "c"}
+                                            onChange={this.onValueChange}
+                                        />
+                                        &nbsp;&nbsp;{this.state.question.c}<br />
+                                    </label>}
+                            </p> */}
+                    {/* <p>
                                 <button
                                     onClick={() => this.qAnswered()}
                                     className="save btn btn-info"
                                     type="submit">answer
                                 </button>
-                            </p>
-                            <p>
+                            </p> */}
+
+                    <div className="card p-4 m-4">
+                        <p>
+                            {!this.state.answered ?
+                                <button
+                                    onClick={() => this.qAnswered()}
+                                    className="save btn btn-info"
+                                    type="submit">answer
+                                    </button>
+                                : ""}
+                        </p>
+                        {this.state.answered ?
+                            <QInfo
+                                response={this.state.selectedOption}
+                                answer={this.state.question.answer}
+                                ID={this.state.question._id}
+                                info={this.state.question.info}
+                                thisQ_links={this.state.question.links}
+                            />
+                            : ""}
+                        <p>
+                            {this.state.answered ?
                                 <button
                                     onClick={() => this.handleFormSubmit()}
                                     className="save btn btn-danger"
                                     type="submit">next question
-                                </button>
-                            </p>
-                            {this.state.answered ?
-                                <QInfo
-                                    response={ this.state.selectedOption }
-                                    answer={ this.state.question.answer }
-                                    ID={ this.state.question._id }
-                                    info={ this.state.question.info }
-                                    thisQ_links={ this.state.question.links }
-                                />
-                                : ""
-                            }
-                        </div>
+                                    </button>
+                                : ""}
+                        </p>
                     </div>
                 </div>
-            </Container>
-        )
-    }
+            </div>
+        </Container>
+    )
+}
 }

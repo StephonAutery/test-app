@@ -46,39 +46,49 @@ export default class Landing extends Component {
             return <Redirect to={{
                 pathname: this.state.redirect,
                 state: {
-                    id: JSON.parse(localStorage.getItem('loginData')),
-                    // loggedIn: this.props.location.state.loggedIn
+                    id: JSON.parse(localStorage.getItem('loginData'))
                 }
             }} />
         }
         return (
-            <div className="container">
+            <div className="container w-75">
                 <form>
-                    <h3><p>question sets</p></h3>
-                    <hr />
-                    <p>Susannah Levy is an OBGyn/Obstetrics Nurse at UCSF General Hospital and the Mother of 2.</p>
-                    <button
-                        className="save btn btn-info"
-                        onClick={this.playSue}
-                        type="submit"
-                        value="submit">Susannah Levy
-                    </button>
-                    <hr />
-                    <p>Stephon Autery is a Full Stack Developer and the Father of 2.</p>
-                    <button
-                        className="save btn btn-info"
-                        onClick={this.playStephon}
-                        type="submit"
-                        value="submit">Stephon Autery
-                    </button>
-                    <hr />
-                    <p>Explore the TRUE histories of the Presidents of the United States?</p>
-                    <button
-                        className="save btn btn-info"
-                        onClick={this.playPres}
-                        type="submit"
-                        value="submit">who's your President
-                    </button>
+                    <div className="card p-4 m-4">
+                        <h4>question sets</h4>
+                    </div>
+                    <div className="card p-4 m-4">
+                        <p>Susannah Levy is an OBGyn/Obstetrics Nurse at UCSF General Hospital and the Mother of 2.</p>
+                        <p>
+                            <button
+                                className="save btn btn-info"
+                                onClick={this.playSue}
+                                type="submit"
+                                value="submit">Susannah Levy
+                            </button>
+                        </p>
+                    </div>
+                    <div className="card p-4 m-4">
+                        <p>Stephon Autery is a Full Stack Developer and the Father of 2.</p>
+                        <p>
+                            <button
+                                className="save btn btn-info"
+                                onClick={this.playStephon}
+                                type="submit"
+                                value="submit">Stephon Autery
+                            </button>
+                        </p>
+                    </div>
+                    <div className="card p-4 m-4">
+                        <p>Explore the TRUE histories of the Presidents of the United States?</p>
+                        <p>
+                            <button
+                                className="save btn btn-info"
+                                onClick={this.playPres}
+                                type="submit"
+                                value="submit">who's your President
+                            </button>
+                        </p>
+                    </div>
                 </form>
             </div >
         )

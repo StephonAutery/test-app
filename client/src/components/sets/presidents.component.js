@@ -27,7 +27,6 @@ export default class Questions extends Component {
                 this.setState({
                     presidents: res.data
                 })
-                console.log(this.state.presidents);
             })
             .then(() => {
                 this.setState({
@@ -44,9 +43,9 @@ export default class Questions extends Component {
 
     handleFormSubmit = event => {
 
-        console.log(this.props);
+        // console.log(this.props);
         return (
-        <PresInfo />
+            <PresInfo />
         );
 
     }
@@ -62,12 +61,17 @@ export default class Questions extends Component {
                 }
             }} />
         }
+        let count = 0;
         return (
             <Container>
                 <div className="container">
                     <h4><p>president number : {this.state.presNum}</p></h4>
                     <hr />
                     <div>
+                        {this.state.presidents.map(pres => {
+                            count = count + 3;
+                            console.log(count + "-");
+                        })}
 
                         <div className="card ">
                             {this.state.presidents.map(pres => (

@@ -10,18 +10,14 @@ export default class Navbar extends Component {
 
   render() {
     return (
-      <div className="container">
-        <nav className="navbar navbar-default">
-          <div className="container-fluid">
-          <div className="navbar-header">
-            <a className="navbar-brand" href="/">History Portal</a>
-          </div>
-          <ul className="nav navbar-nav">
-            <li><a href="/play">play</a></li>
-            <li><a href="/logout">logout</a></li>
-          </ul>
-          </div>
-        </nav>
+      <div className="container w-75">
+        <div className="col-12 mt-4">
+          <nav className="nav">
+            <a className="nav-link active" href="/"><h5>HistoryPortal</h5></a>
+            <a className="nav-link" href="/play">play</a>
+            <a className="nav-link" href="/logout">logout</a>
+          </nav>
+        </div>
       </div>
     )
   }
