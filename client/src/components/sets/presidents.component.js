@@ -17,11 +17,6 @@ export default class Questions extends Component {
         pres: ""
     }
 
-    constructor(props) {
-        super(props);
-        this.playStephon = this.componentDidMount.bind(this);
-    }
-
     componentDidMount() {
         API.getPres()
             .then(res => {
@@ -43,8 +38,6 @@ export default class Questions extends Component {
     }
 
     handleFormSubmit = event => {
-
-        // console.log(this.props);
         return (
             <PresInfo />
         );
@@ -65,29 +58,33 @@ export default class Questions extends Component {
         // let count = 0;
         return (
             <Container>
-                <div className="container w-75">
+                <div className="w-75">
                     <div className="p-2"><h5>The Presidents of the United States of America</h5></div>
+                    <div className="row">
                     {this.state.presidents.map((pres, index) => (
-                        <div key={index + 3}>
-                            < div key={index} className="card p-2 m-2 w-75" >
-                                <div key={pres._id} className="card-body">
-                                    <h4>{pres.president}</h4>
+                        <div key={index + 3} className="col-nd-4">
+                            < div key={index} className="card p-2 m-2" >
+                                <div key={pres._id} className="card-body w-100">
+                                    <h4>{pres.president}</h4><hr></hr>
                                     <h4>{pres.number}</h4>
                                         birth year: {pres.birth_year}  <br />
                                         took office: {pres.took_office}<br />
                                         left office: {pres.left_office}<br />
                                         death year: {pres.death_year}<br />
                                         party: {pres.party}<hr />
+                                    <div>
                                     <p>
                                         <a href="/play" className="btn btn-info">return to portal</a>
                                     </p>
                                     <p>
-                                        <a href="/play" data={pres._id} className="btn btn-info">id: {pres._id}</a>
+                                        <a href="/play" data={pres._id} className="btn btn-info">my president</a>
                                     </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     ))}
+                    </div>
                 </div>
             </Container >
         )

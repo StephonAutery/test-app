@@ -4,6 +4,7 @@ import API from '../../utils/API';
 import Container from "../container.component";
 import { Redirect } from "react-router-dom";
 import PresInfo from "../info/presInfo.component";
+// import Moment from 'react-moment';
 
 export default class Questions extends Component {
     state = {
@@ -14,6 +15,11 @@ export default class Questions extends Component {
         selectedOption: '',
         presNum: 0,
         pres: ""
+    }
+
+    constructor(props) {
+        super(props);
+        this.playStephon = this.componentDidMount.bind(this);
     }
 
     componentDidMount() {
@@ -37,31 +43,10 @@ export default class Questions extends Component {
     }
 
     handleFormSubmit = event => {
-
-        // console.log(this.props);
         return (
             <PresInfo />
         );
 
-    }
-
-    createCards() {
-        for (let i = 0; i < 3; i++) {
-            < div key={index} className="card p-2 m-2" >
-                <div key={pres._id} className="card-body">
-                    <p>this</p>
-                </div>
-            </div>
-        }
-
-    }
-    createRow(index) {
-        if (index % 3 === 0) {
-            return (
-                <div className="row">
-                    {this.createCards(index)}
-                </div>)
-        }
     }
 
     render() {
@@ -79,16 +64,13 @@ export default class Questions extends Component {
         return (
             <Container>
                 <div className="container w-75">
-                    <h4><p>president number : {this.state.presNum}</p></h4>
-                    <hr />
-
+                    <div className="p-2"><h5>The Presidents of the United States of America</h5></div>
                     {this.state.presidents.map((pres, index) => (
-                        <div key={index + 3}>
-                            {createRow(index)}
-                            < div key={index} className="card p-2 m-2" >
+                        <div key={index + 3} class="col-sm-4">
+                            < div key={index} className="card p-2 m-2 w-75" >
                                 <div key={pres._id} className="card-body">
                                     <h4>{pres.president}</h4>
-                                    {pres.number}<hr />
+                                    <h4>{pres.number}</h4>
                                         birth year: {pres.birth_year}  <br />
                                         took office: {pres.took_office}<br />
                                         left office: {pres.left_office}<br />
@@ -98,26 +80,13 @@ export default class Questions extends Component {
                                         <a href="/play" className="btn btn-info">return to portal</a>
                                     </p>
                                     <p>
-                                        <a href="/play" data={pres._id} className="btn btn-info">{pres._id}</a>
-                                    </p>
-                                    <p>
-                                        <button
-                                            onClick={() => this.handleFormSubmit()}
-                                            className="save btn btn-info"
-                                            type="submit">next President
-                                    </button>
+                                        <a href="/play" data={pres._id} className="btn btn-info">id: {pres._id}</a>
                                     </p>
                                 </div>
                             </div>
                         </div>
-
                     ))}
-
-                    {/* <PresInfo /> */}
                 </div>
-
-
-
             </Container >
         )
     }
