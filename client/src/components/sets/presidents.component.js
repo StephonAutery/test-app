@@ -4,7 +4,6 @@ import API from '../../utils/API';
 import Container from "../container.component";
 import { Redirect } from "react-router-dom";
 import PresInfo from "../info/presInfo.component";
-// import Moment from 'react-moment';
 
 export default class Questions extends Component {
     state = {
@@ -55,14 +54,13 @@ export default class Questions extends Component {
                 }
             }} />
         }
-        // let count = 0;
         return (
             <Container>
                 <div className="w-75">
                     <div className="p-2"><h5>The Presidents of the United States of America</h5></div>
                     <div className="row">
                     {this.state.presidents.map((pres, index) => (
-                        <div key={index + 3} className="col-nd-4">
+                        <div key={index + 3} className="col-bnd-4">
                             < div key={index} className="card p-2 m-2" >
                                 <div key={pres._id} className="card-body w-100">
                                     <h4>{pres.president}</h4><hr></hr>
