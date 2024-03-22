@@ -4,6 +4,7 @@ header.innerHTML = `
 <div class="header">
   <a href="./index.html">home</a>
   <a href="./tiles.html">tiles</a>
+  <a href="./flex.html">flex</a>
 </div>
 `;
 
